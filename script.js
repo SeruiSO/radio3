@@ -37,28 +37,25 @@ if ('serviceWorker' in navigator) {
 }
 
 function applyTheme(theme) {
-  const isLightText = theme === "light" || theme === "light-alt";
-  document.body.style.background = themes[theme].bodyBg;
-  document.querySelector(".container").style.background = themes[theme].containerBg;
-  document.querySelector("h1").style.color = themes[theme].accent;
+  const themeData = themes[theme];
+  document.documentElement.style.setProperty('--accent-color', themeData.accent);
+  document.documentElement.style.setProperty('--text-color', themeData.text);
+  document.documentElement.style.setProperty('--shadow-color', `${themeData.accent}80`);
+  document.body.style.background = themeData.bodyBg;
+  document.querySelector(".container").style.background = themeData.containerBg;
+  document.querySelector("h1").style.color = themeData.accent;
   document.querySelectorAll(".station-list, .control-btn, .theme-toggle, .current-station-info, .tab-btn").forEach(el => {
-    el.style.background = themes[theme].containerBg;
-    el.style.borderColor = themes[theme].accent;
-    el.style.color = themes[theme].text;
+    el.style.background = themeData.containerBg;
+    el.style.borderColor = themeData.accent;
+    el.style.color = themeData.text;
   });
   document.querySelectorAll(".station-item").forEach(el => {
-    el.style.background = themes[theme].containerBg;
-    el.style.borderColor = themes[theme].text;
-    el.style.color = themes[theme].text;
+    el.style.background = themeData.containerBg;
+    el.style.borderColor = themeData.text;
+    el.style.color = themeData.text;
   });
-  document.querySelectorAll(".station-item:hover, .station-item.selected").forEach(el => {
-    el.style.background = themes[theme].accent;
-    el.style.borderColor = themes[theme].accent;
-    el.style.color = isLightText ? "#121212" : "#fff";
-    el.style.boxShadow = `0 0 15px ${themes[theme].accent}80`;
-  });
-  document.querySelector(".controls-container").style.background = themes[theme].containerBg;
-  document.querySelector(".controls-container").style.borderColor = themes[theme].accent;
+  document.querySelector(".controls-container").style.background = themeData.containerBg;
+  document.querySelector(".controls-container").style.borderColor = themeData.accent;
   currentTheme = theme;
   localStorage.setItem("selectedTheme", theme);
 }
@@ -67,6 +64,7 @@ function toggleTheme() {
   const themesOrder = ["dark", "light", "neon", "light-alt", "dark-alt"];
   const nextTheme = themesOrder[(themesOrder.indexOf(currentTheme) + 1) % 5];
   applyTheme(nextTheme);
+  updateStationList(); // Re-apply styles to station items
 }
 
 function switchTab(tab) {
@@ -82,6 +80,11 @@ function switchTab(tab) {
 
 function updateStationList() {
   const stations = stationLists[currentTab] || [];
+  if (stations.length === 0) {
+    stationList.innerHTML = '<div>Немає доступних станцій</div>';
+    updateCurrentStationInfo(null);
+    return;
+  }
   const favoriteList = favoriteStations
     .map(name => stations.find(station => station.name === name))
     .filter(station => station);
@@ -105,6 +108,9 @@ function updateStationList() {
       toggleFavorite(item.dataset.name);
     });
   });
+  if (stationItems[currentIndex]) {
+    updateCurrentStationInfo(stationItems[currentIndex]);
+  }
 }
 
 function toggleFavorite(stationName) {
@@ -118,6 +124,7 @@ function toggleFavorite(stationName) {
 }
 
 function changeStation(index) {
+  if (!stationItems[index]) return;
   stationItems.forEach(item => item.classList.remove("selected"));
   stationItems[index].classList.add("selected");
   currentIndex = index;
@@ -138,6 +145,12 @@ function changeStation(index) {
 }
 
 function updateCurrentStationInfo(item) {
+  if (!item) {
+    currentStationInfo.querySelector(".station-name").textContent = "Виберіть станцію";
+    currentStationInfo.querySelector(".station-genre").textContent = "";
+    currentStationInfo.querySelector(".station-country").textContent = "";
+    return;
+  }
   currentStationInfo.querySelector(".station-name").textContent = item.dataset.name;
   currentStationInfo.querySelector(".station-genre").textContent = `жанр: ${item.dataset.genre}`;
   currentStationInfo.querySelector(".station-country").textContent = `країна: ${item.dataset.country}`;
@@ -311,10 +324,13 @@ fetch('stations.json')
     if (cachedStations) {
       stationLists = JSON.parse(cachedStations);
       switchTab(currentTab);
+    } else {
+      updateCurrentStationInfo(null);
     }
   });
 
 document.addEventListener("DOMContentLoaded", () => {
+  applyTheme(currentTheme);
   const cachedStations = localStorage.getItem("cachedStations");
   if (cachedStations) {
     stationLists = JSON.parse(cachedStations);
@@ -325,5 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showManualPlayPrompt();
       });
     }
+  } else {
+    updateCurrentStationInfo(null);
   }
 });
