@@ -1,0 +1,354 @@
+/* Updated on May 15, 2025 */
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #121212;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: hidden;
+  padding-top: 10px;
+  box-sizing: border-box;
+  transition: background 0.3s ease;
+}
+
+.container {
+  max-width: 100%;
+  width: 100%;
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 196, 255, 0.3);
+  margin: 0 10px;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: background 0.3s ease;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin: 5px 0;
+  text-align: center;
+  color: #00C4FF;
+  text-shadow: 0 0 10px rgba(0, 196, 255, 0.5);
+  transition: color 0.3s ease;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #333;
+  border: 1px solid #00C4FF;
+  border-radius: 5px;
+  padding: 6px;
+  cursor: pointer;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: #00C4FF;
+  color: #121212;
+  box-shadow: 0 0 15px rgba(0, 196, 255, 0.5);
+}
+
+.current-station-info {
+  background: #252525;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  border: 2px solid #00ffcc;
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+  text-align: center;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(45deg, #1a1a2e, #2e2e3e);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.current-station-info.offline::before {
+  content: "📴 Офлайн-режим";
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 18px;
+}
+
+.current-station-info .station-name {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.current-station-info .station-genre {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 5px;
+}
+
+.current-station-info .station-country {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: #333;
+  border: 1px solid #00C4FF;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  background: #00C4FF;
+  color: #121212;
+}
+
+.tab-btn.active {
+  background: #00ffcc;
+  border-color: #00ffcc;
+  color: #121212;
+}
+
+.station-list {
+  max-height: 500px;
+  overflow-y: auto;
+  background: #2c2c2c;
+  border: 1px solid #00C4FF;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #00C4FF #2c2c2c;
+  box-shadow: 0 0 10px rgba(0, 196, 255, 0.2);
+  transition: background 0.3s ease, border-color 0.3s ease;
+  touch-action: pan-y;
+}
+
+.station-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.station-list::-webkit-scrollbar-track {
+  background: #2c2c2c;
+}
+
+.station-list::-webkit-scrollbar-thumb {
+  background: #00C4FF;
+  border-radius: 4px;
+}
+
+.station-item {
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  font-weight: 500;
+  border: 1px solid #444;
+  margin: 5px 0;
+  color: #fff;
+  background: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.station-item:hover, .station-item.selected {
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+}
+
+.station-item .favorite-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.station-item .favorite-btn.favorited {
+  color: #ffd700;
+}
+
+.station-item .favorite-btn:hover {
+  color: #ffd700;
+}
+
+.controls-container {
+  position: sticky;
+  bottom: 0;
+  background: #1a1a2e;
+  border-top: 2px solid #00C4FF;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: auto;
+  z-index: 10;
+}
+
+.wave-progress {
+  display: flex;
+  gap: 4px;
+  height: 40px;
+  width: 60px;
+}
+
+.wave-bar {
+  width: 10px;
+  background: #00C4FF;
+  border-radius: 5px;
+  animation: waveAnimation 1.5s infinite ease-in-out;
+}
+
+.wave-bar:nth-child(2) { animation-delay: 0.3s; }
+.wave-bar:nth-child(3) { animation-delay: 0.6s; }
+.wave-bar:nth-child(4) { animation-delay: 0.9s; }
+.wave-bar:nth-child(5) { animation-delay: 1.2s; }
+
+@keyframes waveAnimation {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.control-btn {
+  width: 80px;
+  height: 80px;
+  font-size: 32px;
+  background: #333;
+  color: #fff;
+  border: 2px solid #00C4FF;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 196, 255, 0.3);
+}
+
+.control-btn:hover {
+  background: #00C4FF;
+  color: #121212;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 196, 255, 0.5);
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 5px rgba(0, 196, 255, 0.3);
+}
+
+@media (max-width: 720px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  .container {
+    padding: 10px;
+    margin: 0 5px;
+    min-height: 90vh;
+  }
+
+  .control-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+
+  .station-list {
+    max-height: 400px;
+    margin: 8px 0;
+    padding: 8px;
+  }
+
+  .station-item {
+    padding: 10px;
+    margin: 4px 0;
+    font-size: 16px;
+  }
+
+  .theme-toggle {
+    top: 5px;
+    left: 5px;
+    padding: 4px;
+    height: 30px;
+    width: 30px;
+  }
+
+  .current-station-info {
+    font-size: 24px;
+    height: auto;
+    padding: 10px;
+  }
+
+  .current-station-info .station-name {
+    font-size: 24px;
+  }
+
+  .current-station-info .station-genre {
+    font-size: 16px;
+  }
+
+  .current-station-info .station-country {
+    font-size: 16px;
+  }
+
+  .wave-progress {
+    width: 50px;
+    height: 30px;
+  }
+
+  .wave-bar {
+    width: 8px;
+  }
+
+  .tab-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+}
+
+@media (max-height: 1600px) {
+  .container {
+    min-height: 85vh;
+  }
+
+  .station-list {
+    max-height: 450px;
+  }
+}
