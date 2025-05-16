@@ -5,20 +5,21 @@ const currentStationInfo = document.getElementById("currentStationInfo");
 let currentIndex = parseInt(localStorage.getItem("lastStation")) || 0;
 let favoriteStations = JSON.parse(localStorage.getItem("favoriteStations")) || [];
 let currentTab = localStorage.getItem("currentTab") || "techno";
-let isPlaying = localStorage.getItem("isPlaying") === "true" || true; // Default to true for autoplay
+let isPlaying = localStorage.getItem("isPlaying") === "true" || false;
 let stationLists = {};
 let stationItems;
 let hasUserInteraction = false;
 
-// Handle user interaction for autoplay
+// Дозвіл на відтворення після першого кліку
 document.addEventListener('click', () => {
   hasUserInteraction = true;
-  if (audio.src && isPlaying && audio.paused) {
-    audio.play().catch(error => console.error("Помилка відтворення після взаємодії:", error));
+  if (audio.src && !audio.paused && !isPlaying && stationItems?.length > currentIndex) {
+    changeStation(currentIndex);
+    if (isPlaying) audio.play().catch(error => console.error("Помилка відтворення після взаємодії:", error));
   }
 }, { once: true });
 
-// Load stations with cache fallback
+// Функція для завантаження станцій із кешем як резервом
 async function loadStations(attempt = 1) {
   try {
     const response = await fetch('stations.json');
@@ -32,12 +33,10 @@ async function loadStations(attempt = 1) {
       localStorage.setItem("currentTab", currentTab);
     }
     switchTab(currentTab);
-    // Trigger autoplay after stations are loaded
-    if (stationItems?.length > currentIndex) {
+    // Автовідтворення після завантаження станцій
+    if (stationItems?.length > currentIndex && isPlaying) {
       changeStation(currentIndex);
-      if (isPlaying) {
-        audio.play().catch(error => console.error("Помилка автовідтворення:", error));
-      }
+      audio.play().catch(error => console.error("Помилка автовідтворення:", error));
     }
   } catch (error) {
     console.error("Помилка завантаження станцій (спроба " + attempt + "):", error);
@@ -53,12 +52,10 @@ async function loadStations(attempt = 1) {
               localStorage.setItem("currentTab", currentTab);
             }
             switchTab(currentTab);
-            // Trigger autoplay after stations are loaded
-            if (stationItems?.length > currentIndex) {
+            // Автовідтворення після завантаження з кешу
+            if (stationItems?.length > currentIndex && isPlaying) {
               changeStation(currentIndex);
-              if (isPlaying) {
-                audio.play().catch(error => console.error("Помилка автовідтворення:", error));
-              }
+              audio.play().catch(error => console.error("Помилка автовідтворення:", error));
             }
           }).catch(cacheError => {
             console.error("Помилка читання кешу:", cacheError);
@@ -79,7 +76,7 @@ async function loadStations(attempt = 1) {
 
 loadStations();
 
-// Themes
+// Теми
 const themes = {
   dark: { bodyBg: "#121212", containerBg: "#1e1e1e", accent: "#00C4FF", text: "#fff" },
   light: { bodyBg: "#f0f0f0", containerBg: "#fff", accent: "#007BFF", text: "#000" },
@@ -89,7 +86,7 @@ const themes = {
 };
 let currentTheme = localStorage.getItem("selectedTheme") || "dark";
 
-// Service Worker setup
+// Налаштування Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').then((registration) => {
     registration.update();
@@ -120,8 +117,8 @@ function applyTheme(theme) {
     el.style.borderColor = themes[theme].text;
     el.style.color = themes[theme].text;
   });
-  document.querySelector(".bottom-container").style.background = themes[theme].containerBg;
-  document.querySelector(".bottom-container").style.borderColor = themes[theme].accent;
+  document.querySelector(".controls-container").style.background = themes[theme].containerBg;
+  document.querySelector(".controls-container").style.borderColor = themes[theme].accent;
   currentTheme = theme;
   localStorage.setItem("selectedTheme", theme);
 }
@@ -142,12 +139,10 @@ function switchTab(tab) {
   document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
   const activeBtn = document.querySelector(`.tab-btn[onclick="switchTab('${tab}')"]`);
   if (activeBtn) activeBtn.classList.add("active");
-  // Trigger playback when switching tabs
-  if (stationItems?.length > currentIndex) {
+  // Автовідтворення при перемиканні вкладки
+  if (stationItems?.length > currentIndex && isPlaying) {
     changeStation(currentIndex);
-    if (isPlaying) {
-      audio.play().catch(error => console.error("Помилка автовідтворення:", error));
-    }
+    audio.play().catch(error => console.error("Помилка автовідтворення:", error));
   }
 }
 
@@ -191,6 +186,10 @@ function updateStationList() {
       toggleFavorite(stationName);
     }
   };
+
+  if (stationItems.length > 0 && currentIndex < stationItems.length) {
+    changeStation(currentIndex);
+  }
 }
 
 function toggleFavorite(stationName) {
@@ -216,7 +215,7 @@ function changeStation(index) {
   } else {
     document.querySelectorAll(".wave-bar").forEach(bar => bar.style.animationPlayState = "running");
   }
-  if (isPlaying && (hasUserInteraction || !audio.paused)) {
+  if (isPlaying && hasUserInteraction) {
     audio.play().catch(error => console.error("Помилка відтворення:", error));
   }
   localStorage.setItem("isPlaying", isPlaying);
@@ -296,7 +295,6 @@ audio.addEventListener("playing", () => {
   isPlaying = true;
   localStorage.setItem("isPlaying", isPlaying);
 });
-
 audio.addEventListener("pause", () => {
   playPauseBtn.textContent = "▶";
   document.querySelectorAll(".wave-bar").forEach(bar => bar.style.animationPlayState = "paused");
@@ -315,3 +313,13 @@ window.addEventListener("blur", () => {
 });
 
 audio.volume = 0.5;
+
+// Автовідтворення при завантаженні сторінки
+if (isPlaying) {
+  setTimeout(() => {
+    if (stationItems?.length > currentIndex) {
+      changeStation(currentIndex);
+      audio.play().catch(error => console.error("Помилка автовідтворення:", error));
+    }
+  }, 1000);
+}
