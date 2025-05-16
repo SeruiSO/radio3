@@ -1,4 +1,4 @@
-﻿{
+{
   "techno": [
     { "value": "https://techno-high.rautemusik.fm", "name": "RauteMusik Techno", "genre": "Techno", "emoji": "⚡", "country": "Німеччина" },
     { "value": "https://listen.hardbase.fm/tunein-mp3", "name": "HARDBASE.FM", "genre": "Hard Techno", "emoji": "⚡", "country": "Німеччина" },
@@ -22,7 +22,14 @@
     { "value": "https://sunsl.streamabc.net/sunsl-melodictechno-mp3-192-4167248", "name": "Sunshine Live - Melodic Techno", "genre": "Melodic Techno", "emoji": "🎧", "country": "Німеччина" },
     { "value": "https://myradio24.org/technony", "name": "Techno Live (NEW YORK)", "genre": "Techno", "emoji": "⚡", "country": "США" },
     { "value": "https://systrum.net:8443/SSR2", "name": "Systrum Sistum - SSR2", "genre": "Techno/Electronic", "emoji": "🎶", "country": "США" },
-    { "value": "https://s2.we4stream.com/listen/loca_techo/live", "name": "Loca FM Techno", "genre": "Techno", "emoji": "⚡", "country": "Іспанія" }
+    { "value": "https://s2.we4stream.com/listen/loca_techo/live", "name": "Loca FM Techno", "genre": "Techno", "emoji": "⚡", "country": "Іспанія" },
+    { "value": "https://live.radiospinner.com/minimal-techno-96", "name": "Minimal Techno", "genre": "Techno/Electronic", "emoji": "🔊", "country": "Іспанія" },
+    { "value": "https://listen.openstream.co/6521/audio", "name": "Minimal & Techno on MixLive.ie", "genre": "Dub Techno", "emoji": "🔊", "country": "Ірландія" },
+    { "value": "https://audio.mabu-beatz-radio.com:8003/minimal", "name": "MABU Beatz Minimal", "genre": "Techno/Electronic", "emoji": "🔊", "country": "Німеччина" },
+    { "value": "https://stream.zeno.fm/7ewrk39pknruv", "name": "Techno Importation", "genre": "Techno", "emoji": "⚡", "country": "Франція" },
+    { "value": "https://audio.mabu-beatz-radio.com:8003/dub", "name": "MABU Beatz Dub Techno", "genre": "Dub Techno", "emoji": "🔊", "country": "Німеччина" },
+    { "value": "https://audio.mabu-beatz-radio.com:8003/techno", "name": "MABU Beatz Techno", "genre": "Techno", "emoji": "⚡", "country": "Німеччина" },
+    { "value": "https://live.radiospinner.com/techno-96", "name": "Techno", "genre": "Techno/Electronic", "emoji": "⚡", "country": "Іспанія" }
   ],
   "trance": [
     { "value": "https://listen.trancebase.fm/tunein-mp3", "name": "TRANCEBASE.FM", "genre": "Trance/Techno", "emoji": "🎶", "country": "Німеччина" },
@@ -37,13 +44,17 @@
     { "value": "https://www.ophanim.net:8444/s/8400/", "name": "NYC House Radio", "genre": "House/Tech House", "emoji": "🏠", "country": "США" },
     { "value": "https://control.streaming-pro.com:8000/ibizaglobalclassics.mp3", "name": "Ibiza Global Classics", "genre": "Classic House/Techno", "emoji": "🏠", "country": "Іспанія" },
     { "value": "https://stream.friskyradio.com/friskyprog-mp3-128", "name": "Frisky Radio Progressive", "genre": "Progressive House/Techno", "emoji": "🎧", "country": "США" },
-    { "value": "https://radio.edm1.fm/proxy/18_trancmitter?mp=/stream", "name": "edm1.fm - Trancmitter", "genre": "Trance/EDM", "emoji": "🎶", "country": "Німеччина" },
     { "value": "https://icecast.pulsradio.com/pulsHD.mp3", "name": "PulsRadio Dance", "genre": "Trance/Techno", "emoji": "🎧", "country": "Франція" },
     { "value": "https://stream.sunshine-live.de/trance/mp3-192/radoxo/", "name": "Sunshine Live - Trance", "genre": "Trance", "emoji": "🎶", "country": "Німеччина" },
     { "value": "https://sunsl.streamabc.net/sunsl-newhits-mp3-192-1294829", "name": "Sunshine Live - New Music", "genre": "Techno/Trance", "emoji": "🎶", "country": "Німеччина" },
     { "value": "https://streaming.playtrance.com/playtrance-main-low", "name": "Play Trance - Main Channel", "genre": "Trance", "emoji": "🎶", "country": "Іспанія" },
     { "value": "https://secure.live-streams.nl/live", "name": "Intense Radio", "genre": "House/Techno/Trance", "emoji": "🎧", "country": "Нідерланди" },
-    { "value": "https://live-ff.playtrance.com/playtrance-classics.mp3", "name": "PlayTrance Radio (Classics Channel)", "genre": "Trance", "emoji": "🎶", "country": "Іспанія" }
+    { "value": "https://live-ff.playtrance.com/playtrance-classics.mp3", "name": "PlayTrance Radio (Classics Channel)", "genre": "Trance", "emoji": "🎶", "country": "Іспанія" },
+    { "value": "https://london-dedicated.myautodj.com:3199/proxy/trance/stream", "name": "Toronto Global Radio", "genre": "Trance", "emoji": "🎶", "country": "Канада" },
+    { "value": "https://server35920.streamplus.de/stream.mp3", "name": "Trance Motion FM", "genre": "Trance", "emoji": "🎶", "country": "Німеччина" },
+    { "value": "https://stream.laut.fm/powertrance", "name": "Radio Powertrance", "genre": "Trance/Dance", "emoji": "🎶", "country": "Німеччина" },
+    { "value": "https://live.radiospinner.com/vcltrnc-96", "name": "Vocal Trance", "genre": "Trance/Electronic", "emoji": "🎶", "country": "Іспанія" },
+    { "value": "https://strmreg.1.fm/trance_mobile_mp3", "name": "1.FM - Absolute Trance Radio", "genre": "Trance/Dance", "emoji": "🎶", "country": "Швейцарія" }
   ],
   "ukraine": [
     { "value": "https://online.hitfm.ua/HitFM", "name": "Хіт FM", "genre": "Поп-музика", "emoji": "🎶", "country": "Україна" },
@@ -59,7 +70,7 @@
     { "value": "https://online.radiojazz.ua/RadioJazz", "name": "Radio Jazz", "genre": "Джаз", "emoji": "🎷", "country": "Україна" },
     { "value": "https://online.classicradio.ua/ClassicRadio", "name": "Classic Radio", "genre": "Класична музика", "emoji": "🎻", "country": "Україна" },
     { "value": "https://cast.brg.ua/shanson_main_public_mp3_hq", "name": "Шлягер FM", "genre": "Шансон/Естрада", "emoji": "🎙", "country": "Україна" },
-    { "value": "https://cast.brg.ua/powerfm_main_public_mp3_hq", "name": "Power FM", "genre": "Поп/Танцювальна", "emoji": "💃", "country": "Україна" },
+    { "value": "https://cast.brg.ua/powerfm_main_public_mp3_hq", "name": "Power FM", "genre": "Поп/Танцювальна", "emoji": "�principality", "country": "Україна" },
     { "value": "https://cast.brg.ua/djfm_main_public_mp3_hq", "name": "DJ FM", "genre": "Танцювальна/EDM", "emoji": "💃", "country": "Україна" },
     { "value": "https://cast.brg.ua/business_main_public_mp3_hq", "name": "Magic Radio", "genre": "Легка музика", "emoji": "🌿", "country": "Україна" },
     { "value": "https://cast.mediaonline.net.ua/avtoradio320", "name": "Авторадіо", "genre": "Поп-музика", "emoji": "🚗", "country": "Україна" },
@@ -72,7 +83,7 @@
     { "value": "https://audio.radiotrek.rv.ua/", "name": "Радіо Трек", "genre": "Поп/Рок", "emoji": "🎸", "country": "Україна" },
     { "value": "https://cdn-br2.live-tv.cloud/sferarvFM/320k/icecast.audio", "name": "Сфера-ФМ", "genre": "Поп-музика", "emoji": "🎶", "country": "Україна" },
     { "value": "https://online.1043.com.ua/1043fm", "name": "Західний Полюс", "genre": "Поп/Рок", "emoji": "🎸", "country": "Україна" },
-    { "value": "https://listen6.myradio24.com/69829", "name": "Радіо Вежа", "genre": "Поп-музика", "emoji": "🎶", "country": "Україна" },
+    { "value": "https://listenannual.myradio24.com/69829", "name": "Радіо Вежа", "genre": "Поп-музика", "emoji": "🎶", "country": "Україна" },
     { "value": "https://100.cv.ua:8443/play", "name": "Буковинська Хвиля", "genre": "Поп/Народна музика", "emoji": "🎶", "country": "Україна" },
     { "value": "https://stream.chv.ua:8443/acc.mp3", "name": "Радіо 10", "genre": "Поп-музика", "emoji": "🎶", "country": "Україна" },
     { "value": "https://radio.c4.com.ua:8443/320", "name": "Радіо C4", "genre": "Поп-музика", "emoji": "🎶", "country": "Україна" }
