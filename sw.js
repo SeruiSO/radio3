@@ -1,21 +1,25 @@
-const CACHE_NAME = 'radio-pwa-cache-v4';
+const CACHE_NAME = 'radio-pwa-cache-v17';
 const urlsToCache = [
+  '/',
   'index.html',
   'styles.css',
   'script.js',
   'stations.json',
   'manifest.json',
   'icon-192.png',
-  'icon-512.png',
-  'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap'
+  'icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        return cache.addAll(urlsToCache);
+        console.log('Кешування файлів:', urlsToCache);
+        return cache.addAll(urlsToCache).catch(error => {
+          console.error('Помилка кешування:', error);
+        });
       })
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -37,9 +41,7 @@ self.addEventListener('fetch', (event) => {
             });
           return response;
         }).catch(() => {
-          if (event.request.url.includes('stations.json')) {
-            return caches.match('stations.json');
-          }
+          return caches.match(event.request);
         });
       })
   );
@@ -56,6 +58,12 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    })
+    }).then(() => {
+      self.clients.matchAll().then(clients => {
+        clients.forEach(client => {
+          client.postMessage({ type: 'UPDATE', message: 'Додаток оновлено до нової версії!' });
+        });
+      });
+    }).then(() => self.clients.claim())
   );
 });
