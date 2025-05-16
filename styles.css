@@ -108,6 +108,13 @@ h1 {
   margin-top: 2px;
 }
 
+.current-station-info .controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-left: auto;
+}
+
 .bottom-container {
   position: sticky;
   bottom: 0;
@@ -129,7 +136,7 @@ h1 {
 
 .tab-btn {
   flex: 1;
-  padding: 12px 10px;
+  padding: 12px 10px; /* Increased padding for taller tabs */
   background: #333;
   border: 1px solid #00C4FF;
   border-radius: 5px;
@@ -158,12 +165,11 @@ h1 {
   background: #2c2c2c;
   border: 1px solid #00C4FF;
   border-radius: 10px;
-  margin: 10px 0;
+  margin: 10px 0 5px;
   padding: 10px;
   scrollbar-width: thin;
   scrollbar-color: #00C4FF #2c2c2c;
   box-shadow: 0 0 10px rgba(0, 196, 255, 0.2);
-  width: 100%;
   transition: background 0.3s ease, border-color 0.3s ease;
 }
 
@@ -220,13 +226,6 @@ h1 {
   color: #ffd700;
 }
 
-.controls-container {
-  display: flex;
-  justify-content: center;
-  padding: 10px 15px;
-  width: 100%;
-}
-
 .wave-progress {
   display: flex;
   gap: 4px;
@@ -249,12 +248,6 @@ h1 {
 @keyframes waveAnimation {
   0%, 100% { transform: scaleY(0.3); }
   50% { transform: scaleY(1); }
-}
-
-.controls {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
 }
 
 .control-btn {
@@ -304,7 +297,7 @@ h1 {
 
   .station-list {
     max-height: 400px;
-    margin: 8px 0;
+    margin: 8px 0 5px;
     padding: 8px;
   }
 
@@ -360,6 +353,11 @@ h1 {
     padding: 10px 8px;
     font-size: 12px;
     margin: 0 1px;
+  }
+
+  .current-station-info .controls {
+    margin-top: 10px;
+    margin-left: 0;
   }
 }
 

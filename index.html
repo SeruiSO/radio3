@@ -66,6 +66,11 @@
         <div class="station-genre">жанр: -</div>
         <div class="station-country">країна: -</div>
       </div>
+      <div class="controls">
+        <button class="control-btn" onclick="prevStation()">⏮</button>
+        <button class="control-btn" onclick="togglePlayPause()">▶</button>
+        <button class="control-btn" onclick="nextStation()">⏭</button>
+      </div>
     </div>
 
     <div class="bottom-container">
@@ -75,13 +80,6 @@
         <button class="tab-btn" onclick="switchTab('ukraine')">UKRAINE</button>
       </div>
       <div class="station-list" id="stationList"></div>
-      <div class="controls-container">
-        <div class="controls">
-          <button class="control-btn" onclick="prevStation()">⏮</button>
-          <button class="control-btn" onclick="togglePlayPause()">▶</button>
-          <button class="control-btn" onclick="nextStation()">⏭</button>
-        </div>
-      </div>
     </div>
   </div>
   <audio id="audioPlayer"></audio>
