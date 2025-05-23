@@ -1,0 +1,389 @@
+/* Updated on May 21, 2025 */
+:root {
+  --body-bg: #1a1a1a;
+  --container-bg: #252525;
+  --accent: #4682b4;
+  --text: #f5f5f5;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--body-bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: hidden;
+  padding-top: 10px;
+  box-sizing: border-box;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 100%;
+  width: 100%;
+  background: var(--container-bg);
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid var(--accent);
+  margin: 0 10px;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin: 5px 0;
+  text-align: center;
+  color: var(--accent);
+  transition: color 0.3s ease;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--container-bg);
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  padding: 6px;
+  cursor: pointer;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  color: #121212;
+}
+
+.current-station-info {
+  background: var(--container-bg);
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px 0;
+  color: var(--text);
+  border: 1px solid var(--accent);
+  text-align: left;
+  height: auto;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Градієнт для темних тем */
+[data-theme="dark"] .current-station-info,
+[data-theme="neon"] .current-station-info,
+[data-theme="dark-alt"] .current-station-info {
+  background: linear-gradient(45deg, #252525, #353535);
+}
+
+/* Виправлення для світлих тем */
+[data-theme="light"] .current-station-info,
+[data-theme="light-alt"] .current-station-info {
+  background: var(--container-bg);
+  color: var(--text);
+}
+
+.station-info-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.station-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.current-station-info .station-name {
+  font-size: 28px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+
+.current-station-info .station-genre {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 5px;
+}
+
+.current-station-info .station-country {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  position: sticky;
+  bottom: 110px;
+  z-index: 10;
+  background: var(--container-bg);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 12px;
+  background: var(--container-bg);
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  color: var(--text);
+  cursor: pointer;
+  margin: 0 2px;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-size: 14px;
+}
+
+.tab-btn:hover {
+  background: var(--accent);
+  color: #121212;
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #121212;
+}
+
+.station-list {
+  max-height: 500px;
+  overflow-y: auto;
+  background: var(--container-bg);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  margin: 10px 0 5px;
+  padding: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--container-bg);
+  transition: background 0.3s ease, border-color 0.3s ease;
+  flex-grow: 1;
+}
+
+.station-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.station-list::-webkit-scrollbar-track {
+  background: var(--container-bg);
+}
+
+.station-list::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+.station-item {
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  font-weight: 500;
+  border: 1px solid var(--text);
+  margin: 5px 0;
+  color: var(--text);
+  background: var(--container-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.station-item:hover, .station-item.selected {
+  background: var(--accent) !important;
+  border: 2px solid var(--accent) !important;
+  color: #121212;
+}
+
+.station-item .favorite-btn {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.station-item .favorite-btn.favorited {
+  color: #ffd700;
+}
+
+.station-item .favorite-btn:hover {
+  color: #ffd700;
+}
+
+.controls-container {
+  position: sticky;
+  bottom: 0;
+  background: var(--container-bg);
+  border-top: 2px solid var(--accent);
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 10;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.wave-progress {
+  display: flex;
+  gap: 4px;
+  height: 60px;
+  width: 84px; /* 7 bars * (10px width + 2px gap) */
+  order: -1; /* Place before station-text */
+}
+
+.wave-bar {
+  width: 10px;
+  background: var(--accent);
+  border-radius: 5px;
+  animation: waveAnimation 1.2s infinite ease-in-out;
+  animation-play-state: paused;
+}
+
+.wave-bar:nth-child(2) { animation-delay: 0.2s; }
+.wave-bar:nth-child(3) { animation-delay: 0.3s; }
+.wave-bar:nth-child(4) { animation-delay: 0.4s; }
+.wave-bar:nth-child(5) { animation-delay: 0.5s; }
+.wave-bar:nth-child(6) { animation-delay: 0.6s; }
+.wave-bar:nth-child(7) { animation-delay: 0.7s; }
+
+@keyframes waveAnimation {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.control-btn {
+  width: 80px;
+  height: 80px;
+  font-size: 32px;
+  background: var(--container-bg);
+  color: var(--text);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-btn:hover {
+  background: var(--accent);
+  color: #121212;
+  transform: scale(1.1);
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 720px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  .container {
+    padding: 10px;
+    margin: 0 5px;
+    min-height: 90vh;
+  }
+
+  .control-btn {
+    width: 70px;
+    height: 70px;
+    font-size: 24px;
+  }
+
+  .station-list {
+    max-height: 400px;
+    margin: 8px 0;
+    padding: 8px;
+  }
+
+  .station-item {
+    padding: 10px;
+    margin: 4px 0;
+  }
+
+  .theme-toggle {
+    top: 5px;
+    left: 5px;
+    padding: 4px;
+    height: 30px;
+    width: 30px;
+  }
+
+  .current-station-info {
+    height: auto;
+    padding: 10px;
+  }
+
+  .current-station-info .station-name {
+    font-size: 24px;
+  }
+
+  .current-station-info .station-genre {
+    font-size: 16px;
+  }
+
+  .current-station-info .station-country {
+    font-size: 16px;
+  }
+
+  .station-info-content {
+    gap: 10px;
+  }
+
+  .wave-progress {
+    width: 70px;
+    height: 50px;
+  }
+
+  .wave-bar {
+    width: 8px;
+  }
+
+  .tab-btn {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
+@media (max-height: 1600px) {
+  .container {
+    min-height: 85vh;
+  }
+
+  .station-list {
+    max-height: 450px;
+  }
+}
