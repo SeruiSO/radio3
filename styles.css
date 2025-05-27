@@ -60,7 +60,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all: 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .theme-toggle:hover {
@@ -228,6 +228,30 @@ h1 {
   color: #FFD700;
 }
 
+.station-item.empty {
+  text-align: center;
+  font-style: italic;
+  color: var(--text);
+  opacity: 0.7;
+  padding: 20px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.station-item.empty::before {
+  content: "⏳";
+  font-size: 24px;
+  margin-right: 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .controls-container {
   position: sticky;
   bottom: 0;
@@ -252,7 +276,7 @@ h1 {
   display: flex;
   gap: 4px;
   height: 60px;
-  width: 84px; /* 7 bars * (10px width + 2px gap) */
+  width: 84px;
   order: -1;
 }
 
