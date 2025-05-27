@@ -22,6 +22,19 @@ let isAutoPlaying = false;
 audio.preload = "auto";
 audio.volume = parseFloat(localStorage.getItem("volume")) || 0.9;
 
+// Функція для скидання інформації про станцію
+function resetStationInfo() {
+  const stationNameElement = currentStationInfo.querySelector(".station-name");
+  const stationGenreElement = currentStationInfo.querySelector(".station-genre");
+  const stationCountryElement = currentStationInfo.querySelector(".station-country");
+  if (stationNameElement) stationNameElement.textContent = "Обирайте станцію";
+  else console.error("Елемент .station-name не знайдено в currentStationInfo");
+  if (stationGenreElement) stationGenreElement.textContent = "жанр: -";
+  else console.error("Елемент .station-genre не знайдено в currentStationInfo");
+  if (stationCountryElement) stationCountryElement.textContent = "країна: -";
+  else console.error("Елемент .station-country не знайдено в currentStationInfo");
+}
+
 // Завантаження станцій
 async function loadStations() {
   console.time("loadStations");
@@ -328,14 +341,22 @@ function updateCurrentStationInfo(item) {
   const stationGenreElement = currentStationInfo.querySelector(".station-genre");
   const stationCountryElement = currentStationInfo.querySelector(".station-country");
 
+  console.log("Оновлення currentStationInfo з даними:", item.dataset); // Дебаг-лог
+
   if (stationNameElement) {
     stationNameElement.textContent = item.dataset.name || "Unknown";
+  } else {
+    console.error("Елемент .station-name не знайдено в currentStationInfo");
   }
   if (stationGenreElement) {
-    stationGenreElement.textContent = `Genre: ${item.dataset.genre || "Unknown"}`;
+    stationGenreElement.textContent = `жанр: ${item.dataset.genre || "Unknown"}`;
+  } else {
+    console.error("Елемент .station-genre не знайдено в currentStationInfo");
   }
   if (stationCountryElement) {
-    stationCountryElement.textContent = `Country: ${item.dataset.country || "Unknown"}`;
+    stationCountryElement.textContent = `країна: ${item.dataset.country || "Unknown"}`;
+  } else {
+    console.error("Елемент .station-country не знайдено в currentStationInfo");
   }
   if ("mediaSession" in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({

@@ -43,16 +43,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#00F0FF">
-  <title>Radio S O</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>🎧 RADIO MUSIC</title>
+  <link rel="icon" type="image/png" href="/icon-192.png">
   <link rel="manifest" href="manifest.json">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="theme-toggle">🌙</div>
+  <button class="theme-toggle">🌙</button>
   <div class="container">
     <h1>🎧 RADIO MUSIC</h1>
-    <div class="current-station-info">
+    <div class="current-station-info" id="currentStationInfo">
       <div class="station-info-content">
         <div class="wave-progress">
           <div class="wave-bar"></div>
@@ -64,7 +64,7 @@
           <div class="wave-bar"></div>
         </div>
         <div class="station-text">
-          <div class="station-name" id="currentStationInfo">Обирайте станцію</div>
+          <div class="station-name">Обирайте станцію</div>
           <div class="station-genre">жанр: -</div>
           <div class="station-country">країна: -</div>
         </div>
@@ -72,7 +72,7 @@
     </div>
     <div class="station-list" id="stationList"></div>
     <div class="tabs">
-      <button class="tab-btn" onclick="switchTab('best')">BEST</button>
+      <button class="tab-btn active" onclick="switchTab('best')">BEST</button>
       <button class="tab-btn" onclick="switchTab('techno')">TECHNO</button>
       <button class="tab-btn" onclick="switchTab('trance')">TRANCE</button>
       <button class="tab-btn" onclick="switchTab('ukraine')">UKRAINE</button>

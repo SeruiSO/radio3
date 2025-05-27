@@ -1,4 +1,4 @@
-/* Updated on May 27, 2025 */
+/* Updated on May 28, 2025 */
 :root {
   --body-bg: #0A0A0A;
   --container-bg: #121212;
@@ -127,9 +127,9 @@ h1 {
 .tabs {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
+  margin: 5px 0; /* Зменшено відступи */
   position: sticky;
-  bottom: 110px;
+  bottom: 100px; /* Адаптовано для розташування над controls-container */
   z-index: 10;
   background: var(--container-bg);
   padding: 5px;
@@ -279,7 +279,6 @@ h1 {
   gap: 4px;
   height: 60px;
   width: 84px;
-  order: -1;
 }
 
 .wave-bar {
@@ -403,7 +402,7 @@ h1 {
   }
 
   .tabs {
-    bottom: 100px;
+    bottom: 90px; /* Адаптовано для нового розташування */
   }
 }
 
