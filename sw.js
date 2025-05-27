@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = "radio-pwa-cache-v114";
+﻿const CACHE_NAME = "radio-pwa-cache-v423";
 const urlsToCache = [
   "/",
   "index.html",
@@ -30,19 +30,22 @@ self.addEventListener("fetch", event => {
         if (response) {
           return response;
         }
-        return fetch(event.request).then(response => {
-          if (!response || response.status !== 200 || response.type !== "basic") {
-            return response;
-          }
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME)
-            .then(cache => {
-              cache.put(event.request, responseToCache);
-            });
-          return response;
-        }).catch(() => {
-          return caches.match(event.request);
-        });
+        return fetch(event.request)
+          .then(networkResponse => {
+            if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
+              return networkResponse;
+            }
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                cache.put(event.request, responseToCache);
+              });
+            return networkResponse;
+          })
+          .catch(error => {
+            console.error(`Помилка запиту до ${event.request.url}:`, error);
+            return caches.match(event.request);
+          });
       })
   );
 });
@@ -83,7 +86,8 @@ setInterval(() => {
         });
       }
     })
-    .catch(() => {
+    .catch(error => {
+      console.error("Помилка перевірки мережі:", error);
       if (wasOnline) {
         wasOnline = false;
         self.clients.matchAll().then(clients => {
@@ -93,4 +97,24 @@ setInterval(() => {
         });
       }
     });
-}, 1000); // Перевірка кожну секунду
+}, 1000);
+
+// Періодичне оновлення кешу stations.json
+setInterval(() => {
+  caches.open(CACHE_NAME).then(cache => {
+    fetch("stations.json", { cache: "no-cache" })
+      .then(response => {
+        if (response.ok) {
+          cache.put("stations.json", response.clone());
+          self.clients.matchAll().then(clients => {
+            clients.forEach(client => {
+              client.postMessage({ type: "STATIONS_UPDATED", message: "Список станцій оновлено" });
+            });
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Помилка оновлення кешу stations.json:", error);
+      });
+  });
+}, 60 * 60 * 1000); // Оновлення кожну годину

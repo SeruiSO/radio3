@@ -1,9 +1,10 @@
-/* Updated on May 21, 2025 */
+/* Updated on May 27, 2025 */
 :root {
-  --body-bg: #1a1a1a;
-  --container-bg: #252525;
-  --accent: #4682b4;
-  --text: #f5f5f5;
+  --body-bg: #0A0A0A;
+  --container-bg: #121212;
+  --accent: #00F0FF;
+  --text: #F0F0F0;
+  --accent-gradient: #003C4B;
 }
 
 body {
@@ -19,7 +20,7 @@ body {
   overflow-x: hidden;
   padding-top: 10px;
   box-sizing: border-box;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
 .container {
@@ -34,7 +35,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: background 0.4s ease, border-color 0.4s ease;
 }
 
 h1 {
@@ -42,7 +43,7 @@ h1 {
   margin: 5px 0;
   text-align: center;
   color: var(--accent);
-  transition: color 0.3s ease;
+  transition: color 0.4s ease;
 }
 
 .theme-toggle {
@@ -50,30 +51,31 @@ h1 {
   top: 10px;
   left: 10px;
   background: var(--container-bg);
-  border: 1px solid var(--accent);
-  border-radius: 5px;
-  padding: 6px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  padding: 8px;
   cursor: pointer;
-  height: 35px;
-  width: 35px;
+  height: 40px;
+  width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all: 0.3s ease;
 }
 
 .theme-toggle:hover {
   background: var(--accent);
-  color: #121212;
+  color: #0A0A0A;
+  transform: scale(1.1);
 }
 
 .current-station-info {
-  background: var(--container-bg);
-  padding: 15px;
-  border-radius: 10px;
+  background: linear-gradient(45deg, var(--container-bg), var(--accent-gradient));
+  padding: 20px;
+  border-radius: 12px;
   margin: 10px 0;
   color: var(--text);
-  border: 1px solid var(--accent);
+  border: 2px solid var(--accent);
   text-align: left;
   height: auto;
   display: flex;
@@ -81,21 +83,13 @@ h1 {
   position: sticky;
   top: 0;
   z-index: 10;
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3);
+  transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Градієнт для темних тем */
-[data-theme="dark"] .current-station-info,
-[data-theme="neon"] .current-station-info,
-[data-theme="dark-alt"] .current-station-info {
-  background: linear-gradient(45deg, #252525, #353535);
-}
-
-/* Виправлення для світлих тем */
-[data-theme="light"] .current-station-info,
-[data-theme="light-alt"] .current-station-info {
-  background: var(--container-bg);
-  color: var(--text);
+.current-station-info:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.5);
 }
 
 .station-info-content {
@@ -133,52 +127,53 @@ h1 {
 .tabs {
   display: flex;
   justify-content: space-between;
-  margin: 5px 0;
+  margin: 10px 0;
   position: sticky;
   bottom: 110px;
   z-index: 10;
   background: var(--container-bg);
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .tab-btn {
   flex: 1;
   padding: 12px;
   background: var(--container-bg);
-  border: 1px solid var(--accent);
+  border: 2px solid var(--accent);
   border-radius: 5px;
   color: var(--text);
   cursor: pointer;
   margin: 0 2px;
-  transition: all 0.3s ease;
   text-align: center;
   font-size: 14px;
+  transition: all 0.3s ease;
 }
 
 .tab-btn:hover {
   background: var(--accent);
-  color: #121212;
+  color: #0A0A0A;
+  transform: translateY(-2px);
 }
 
 .tab-btn.active {
   background: var(--accent);
   border-color: var(--accent);
-  color: #121212;
+  color: #0A0A0A;
 }
 
 .station-list {
   max-height: 500px;
   overflow-y: auto;
   background: var(--container-bg);
-  border: 1px solid var(--accent);
+  border: 2px solid var(--accent);
   border-radius: 10px;
   margin: 10px 0 5px;
   padding: 10px;
   scrollbar-width: thin;
   scrollbar-color: var(--accent) var(--container-bg);
-  transition: background 0.3s ease, border-color 0.3s ease;
   flex-grow: 1;
+  transition: border-color 0.4s ease;
 }
 
 .station-list::-webkit-scrollbar {
@@ -197,7 +192,6 @@ h1 {
 .station-item {
   padding: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
   border-radius: 8px;
   font-weight: 500;
   border: 1px solid var(--text);
@@ -207,13 +201,14 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .station-item:hover, .station-item.selected {
   background: var(--accent) !important;
   border: 2px solid var(--accent) !important;
-  color: #121212;
+  color: #0A0A0A;
+  transform: translateY(-2px);
 }
 
 .station-item .favorite-btn {
@@ -226,11 +221,11 @@ h1 {
 }
 
 .station-item .favorite-btn.favorited {
-  color: #ffd700;
+  color: #FFD700;
 }
 
 .station-item .favorite-btn:hover {
-  color: #ffd700;
+  color: #FFD700;
 }
 
 .controls-container {
@@ -244,7 +239,7 @@ h1 {
   justify-content: center;
   gap: 20px;
   z-index: 10;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: background 0.4s ease, border-color 0.4s ease;
 }
 
 .controls {
@@ -258,7 +253,7 @@ h1 {
   gap: 4px;
   height: 60px;
   width: 84px; /* 7 bars * (10px width + 2px gap) */
-  order: -1; /* Place before station-text */
+  order: -1;
 }
 
 .wave-bar {
@@ -267,6 +262,7 @@ h1 {
   border-radius: 5px;
   animation: waveAnimation 1.2s infinite ease-in-out;
   animation-play-state: paused;
+  transition: background 0.4s ease;
 }
 
 .wave-bar:nth-child(2) { animation-delay: 0.2s; }
@@ -287,8 +283,8 @@ h1 {
   font-size: 32px;
   background: var(--container-bg);
   color: var(--text);
-  border: 2px solid var(--accent);
-  border-radius: 50%;
+  border: 4px solid var(--accent);
+  border-radius: 15px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -298,8 +294,8 @@ h1 {
 
 .control-btn:hover {
   background: var(--accent);
-  color: #121212;
-  transform: scale(1.1);
+  color: #0A0A0A;
+  transform: scale(1.15);
 }
 
 .control-btn:active {
@@ -321,6 +317,8 @@ h1 {
     width: 70px;
     height: 70px;
     font-size: 24px;
+    border-width: 2px;
+    border-radius: 10px;
   }
 
   .station-list {
@@ -338,13 +336,13 @@ h1 {
     top: 5px;
     left: 5px;
     padding: 4px;
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
   }
 
   .current-station-info {
+    padding: 12px;
     height: auto;
-    padding: 10px;
   }
 
   .current-station-info .station-name {
@@ -375,6 +373,7 @@ h1 {
   .tab-btn {
     padding: 10px;
     font-size: 12px;
+    border-width: 1px;
   }
 }
 
