@@ -1,4 +1,3 @@
-```javascript
 // Оголошення змінних на початку для уникнення Temporal Dead Zone
 let currentTab = localStorage.getItem("currentTab") || "techno";
 let hasUserInteracted = false;
@@ -119,80 +118,78 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Теми
     const themes = {
-      // Жіночі теми
-      "ruby-spark": {
-        bodyBg: "#000000",
-        containerBg: "#1A1A1A",
-        accent: "#FF1744",
-        text: "#FFFFFF",
-        accentGradient: "#D81B60"
-      },
-      "electric-lilac": {
-        bodyBg: "#1C1C1C",
-        containerBg: "#2A2A2A",
-        accent: "#D500F9",
-        text: "#FFFFFF",
-        accentGradient: "#AA00FF"
-      },
-      "lime-zest": {
-        bodyBg: "#000000",
-        containerBg: "#1A1A1A",
-        accent: "#76FF03",
-        text: "#FFFFFF",
-        accentGradient: "#64DD17"
-      },
-      "sapphire-blitz": {
-        bodyBg: "#1C2526",
-        containerBg: "#2E2E2E",
-        accent: "#0288D1",
-        text: "#FFFFFF",
-        accentGradient: "#039BE5"
-      },
-      "solar-flare": {
-        bodyBg: "#000000",
-        containerBg: "#1A1A1A",
-        accent: "#FFEA00",
-        text: "#000000",
-        accentGradient: "#FFCA28"
-      },
-      // Чоловічі теми
-      "obsidian-gloss": {
+      "neon-pulse": {
         bodyBg: "#0A0A0A",
         containerBg: "#121212",
-        accent: "#80D8FF",
-        text: "#E0E0E0",
-        accentGradient: "#0288D1"
+        accent: "#00F0FF",
+        text: "#F0F0F0",
+        accentGradient: "#003C4B"
       },
-      "midnight-flame": {
-        bodyBg: "#000000",
+      "lime-surge": {
+        bodyBg: "#0A0A0A",
+        containerBg: "#121212",
+        accent: "#B2FF59",
+        text: "#E8F5E9",
+        accentGradient: "#2E4B2F"
+      },
+      "flamingo-flash": {
+        bodyBg: "#0A0A0A",
+        containerBg: "#121212",
+        accent: "#FF4081",
+        text: "#FCE4EC",
+        accentGradient: "#4B1A2E"
+      },
+      "violet-vortex": {
+        bodyBg: "#121212",
         containerBg: "#1A1A1A",
-        accent: "#FF5722",
-        text: "#FFFFFF",
-        accentGradient: "#F4511E"
+        accent: "#7C4DFF",
+        text: "#EDE7F6",
+        accentGradient: "#2E1A47"
       },
-      "iron-pulse": {
-        bodyBg: "#212121",
-        containerBg: "#2E2E2E",
-        accent: "#D32F2F",
-        text: "#FFFFFF",
-        accentGradient: "#C62828"
+      "aqua-glow": {
+        bodyBg: "#0A0A0A",
+        containerBg: "#121212",
+        accent: "#26C6DA",
+        text: "#B2EBF2",
+        accentGradient: "#1A3C4B"
       },
-      "teal-strike": {
-        bodyBg: "#1A3C34",
-        containerBg: "#2E4A43",
+      "cosmic-indigo": {
+        bodyBg: "#121212",
+        containerBg: "#1A1A1A",
+        accent: "#3F51B5",
+        text: "#BBDEFB",
+        accentGradient: "#1A2A5A"
+      },
+      "mystic-jade": {
+        bodyBg: "#0A0A0A",
+        containerBg: "#121212",
         accent: "#26A69A",
-        text: "#FFFFFF",
-        accentGradient: "#009688"
+        text: "#B2DFDB",
+        accentGradient: "#1A3C4B"
       },
-      "neon-volt": {
-        bodyBg: "#000000",
+      "aurora-haze": {
+        bodyBg: "#121212",
         containerBg: "#1A1A1A",
-        accent: "#00E676",
-        text: "#FFFFFF",
-        accentGradient: "#00C853"
+        accent: "#64FFDA",
+        text: "#E0F7FA",
+        accentGradient: "#1A4B4B"
+      },
+      "starlit-amethyst": {
+        bodyBg: "#0A0A0A",
+        containerBg: "#121212",
+        accent: "#B388FF",
+        text: "#E1BEE7",
+        accentGradient: "#2E1A47"
+      },
+      "lunar-frost": {
+        bodyBg: "#F5F7FA",
+        containerBg: "#FFFFFF",
+        accent: "#40C4FF",
+        text: "#212121",
+        accentGradient: "#B3E5FC"
       }
     };
-    let currentTheme = localStorage.getItem("selectedTheme") || "obsidian-gloss";
+    let currentTheme = localStorage.getItem("selectedTheme") || "neon-pulse";
 
     function applyTheme(theme) {
       const root = document.documentElement;
@@ -212,16 +209,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function toggleTheme() {
       const themesOrder = [
-        "ruby-spark",
-        "electric-lilac",
-        "lime-zest",
-        "sapphire-blitz",
-        "solar-flare",
-        "obsidian-gloss",
-        "midnight-flame",
-        "iron-pulse",
-        "teal-strike",
-        "neon-volt"
+        "neon-pulse",
+        "lime-surge",
+        "flamingo-flash",
+        "violet-vortex",
+        "aqua-glow",
+        "cosmic-indigo",
+        "mystic-jade",
+        "aurora-haze",
+        "starlit-amethyst",
+        "lunar-frost"
       ];
       const nextTheme = themesOrder[(themesOrder.indexOf(currentTheme) + 1) % themesOrder.length];
       applyTheme(nextTheme);
@@ -342,17 +339,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Якщо не вкладка "best", ставимо поточну станцію на початок
-      if (currentTab !== "best" && currentIndex < stations.length) {
-        const currentStation = stations[currentIndex];
-        stations = [
-          currentStation,
-          ...stations.slice(0, currentIndex),
-          ...stations.slice(currentIndex + 1)
-        ];
-        currentIndex = 0; // Оновлюємо індекс, щоб відповідати новому порядку
-      }
-
       const fragment = document.createDocumentFragment();
       stations.forEach((station, index) => {
         const item = document.createElement("div");
@@ -415,7 +401,6 @@ document.addEventListener("DOMContentLoaded", () => {
       updateCurrentStationInfo(item);
       localStorage.setItem(`lastStation_${currentTab}`, currentIndex);
       tryAutoPlay();
-      if (currentTab !== "best") updateStationList(); // Оновлюємо список, щоб поточна станція була зверху
     }
 
     // Оновлення інформації про станцію
@@ -608,4 +593,3 @@ document.addEventListener("DOMContentLoaded", () => {
     loadStations();
   }
 });
-```

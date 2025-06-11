@@ -1,12 +1,10 @@
-```css
-/* Updated on June 12, 2025 */
+/* Updated on May 28, 2025 */
 :root {
   --body-bg: #0A0A0A;
   --container-bg: #121212;
-  --accent: #80D8FF;
-  --text: #E0E0E0;
-  --accent-gradient: #0288D1;
-  --accent-rgb: 128, 216, 255;
+  --accent: #00F0FF;
+  --text: #F0F0F0;
+  --accent-gradient: #003C4B;
 }
 
 body {
@@ -72,7 +70,7 @@ h1 {
 }
 
 .current-station-info {
-  background: var(--container-bg);
+  background: linear-gradient(45deg, var(--container-bg), var(--accent-gradient));
   padding: 20px;
   border-radius: 12px;
   margin: 10px 0;
@@ -129,9 +127,9 @@ h1 {
 .tabs {
   display: flex;
   justify-content: space-between;
-  margin: 5px 0;
+  margin: 5px 0; /* Зменшено відступи */
   position: sticky;
-  bottom: 100px;
+  bottom: 100px; /* Адаптовано для розташування над controls-container */
   z-index: 10;
   background: var(--container-bg);
   padding: 5px;
@@ -198,8 +196,7 @@ h1 {
   cursor: pointer;
   border-radius: 8px;
   font-weight: 500;
-  border: 1px solid transparent;
-  border-bottom: 1px solid var(--text);
+  border: 1px solid var(--text);
   margin: 5px 0;
   color: var(--text);
   background: var(--container-bg);
@@ -210,9 +207,9 @@ h1 {
 }
 
 .station-item:hover, .station-item.selected {
-  background: rgba(var(--accent-rgb), 0.1);
-  border: 2px solid var(--accent);
-  color: var(--text);
+  background: var(--accent) !important;
+  border: 2px solid var(--accent) !important;
+  color: #0A0A0A;
   transform: translateY(-2px);
 }
 
@@ -405,7 +402,7 @@ h1 {
   }
 
   .tabs {
-    bottom: 90px;
+    bottom: 90px; /* Адаптовано для нового розташування */
   }
 }
 
@@ -418,4 +415,3 @@ h1 {
     max-height: 450px;
   }
 }
-```
