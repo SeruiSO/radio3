@@ -1,20 +1,59 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#00F0FF">
   <title>Radio Music</title>
-  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="icon-192.png">
-  <script src="script.js" defer></script>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <button class="theme-toggle">🌙</button>
   <div class="container">
-    <h1>🎧 RADIO MUSIC</h1>
-    <div class="current-station-info" id="currentStationInfo">
+    <h1>🎧 Radio Music</h1>
+    <div id="currentStationInfo">
       <div class="station-info-content">
         <div class="wave-progress">
           <div class="wave-bar"></div>
@@ -26,22 +65,32 @@
           <div class="wave-bar"></div>
         </div>
         <div class="station-text">
-          <div class="station-name">Обирайте станцію</div>
-          <div class="station-genre">жанр: -</div>
-          <div class="station-country">країна: -</div>
+          <span class="station-name">Обирайте станцію</span>
+          <span class="station-genre">жанр: -</span>
+          <span class="station-country">країна: -</span>
         </div>
       </div>
     </div>
-    <div class="station-list" id="stationList"></div>
+    <audio id="audioPlayer"></audio>
+    <div id="stationList" class="station-list"></div>
     <div class="tabs">
-      <button class="tab-btn">BEST</button>
-      <button class="tab-btn">TECHNO</button>
-      <button class="tab-btn">TRANCE</button>
+      <button class="tab-btn active">Best</button>
+      <button class="tab-btn">Techno</button>
+      <button class="tab-btn">Trance</button>
       <button class="tab-btn">UA</button>
-      <button class="tab-btn">POP</button>
+      <button class="tab-btn">Pop</button>
+      <button class="tab-btn">Search</button>
+    </div>
+    <div id="searchInput">
+      <input id="searchQuery" list="pastSearches" type="text" placeholder="Назва станції">
+      <datalist id="pastSearches"></datalist>
+      <input id="searchCountry" list="suggestedCountries" type="text" placeholder="Країна">
+      <datalist id="suggestedCountries"></datalist>
+      <input id="searchGenre" list="suggestedGenres" type="text" placeholder="Жанр">
+      <datalist id="suggestedGenres"></datalist>
+      <button class="search-btn">🔍</button>
     </div>
     <div class="controls-container">
-      <audio id="audioPlayer"></audio>
       <div class="controls">
         <button class="control-btn">⏮</button>
         <button class="control-btn">▶</button>
@@ -49,5 +98,6 @@
       </div>
     </div>
   </div>
+  <script src="script.js"></script>
 </body>
 </html>
