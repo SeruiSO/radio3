@@ -46,35 +46,38 @@
   <title>Radio Music</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="icon" href="icon-192.png">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <button class="theme-toggle">🌙</button>
+  <button class="share-button">📤</button>
   <div class="container">
     <h1>🎧 Radio Music</h1>
     <div id="currentStationInfo">
       <div class="station-info-content">
-        <div class="wave-progress">
-          <div class="wave-bar"></div>
-          <div class="wave-bar"></div>
-          <div class="wave-bar"></div>
-          <div class="wave-bar"></div>
-          <div class="wave-bar"></div>
-          <div class="wave-bar"></div>
-          <div class="wave-bar"></div>
-        </div>
+        <div class="station-icon">🎵</div>
         <div class="station-text">
-          <span class="station-name">Обирайте станцію</span>
-          <span class="station-genre">жанр: -</span>
-          <span class="station-country">країна: -</span>
+          <div class="station-name">Обирайте станцію</div>
+          <div class="station-genre">жанр: -</div>
+          <div class="station-country">країна: -</div>
+        </div>
+        <div class="wave-visualizer">
+          <div class="wave-line"></div>
+          <div class="wave-line"></div>
+          <div class="wave-line"></div>
+          <div class="wave-line"></div>
+          <div class="wave-line"></div>
+          <div class="wave-line"></div>
+          <div class="wave-line"></div>
+          <div class="wave-line"></div>
+          <div class="wave-line"></div>
         </div>
       </div>
     </div>
-    <audio id="audioPlayer"></audio>
     <div id="stationList" class="station-list"></div>
     <div class="tabs">
-      <button class="tab-btn active">Best</button>
+      <button class="tab-btn">Best</button>
       <button class="tab-btn">Techno</button>
       <button class="tab-btn">Trance</button>
       <button class="tab-btn">UA</button>
@@ -82,15 +85,16 @@
       <button class="tab-btn">Search</button>
     </div>
     <div id="searchInput">
-      <input id="searchQuery" list="pastSearches" type="text" placeholder="Назва станції">
-      <datalist id="pastSearches"></datalist>
-      <input id="searchCountry" list="suggestedCountries" type="text" placeholder="Країна">
-      <datalist id="suggestedCountries"></datalist>
-      <input id="searchGenre" list="suggestedGenres" type="text" placeholder="Жанр">
-      <datalist id="suggestedGenres"></datalist>
+      <input id="searchQuery" type="text" placeholder="Назва станції" list="pastSearches">
+      <input id="searchCountry" type="text" placeholder="Країна" list="suggestedCountries">
+      <input id="searchGenre" type="text" placeholder="Жанр" list="suggestedGenres">
       <button class="search-btn">🔍</button>
+      <datalist id="pastSearches"></datalist>
+      <datalist id="suggestedCountries"></datalist>
+      <datalist id="suggestedGenres"></datalist>
     </div>
     <div class="controls-container">
+      <audio id="audioPlayer"></audio>
       <div class="controls">
         <button class="control-btn">⏮</button>
         <button class="control-btn">▶</button>
