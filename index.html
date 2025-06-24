@@ -38,22 +38,23 @@
         return gk_fileData[filename] || "";
         }
         </script><!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#00F0FF">
-  <title>Radio Music</title>
+  <title>Radio Music S O</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon-192.png">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <button class="theme-toggle">🌙</button>
   <button class="share-button">📤</button>
+
   <div class="container">
     <h1>🎧 Radio Music</h1>
+
     <div id="currentStationInfo">
       <div class="station-info-content">
         <div class="station-icon">🎵</div>
@@ -75,33 +76,65 @@
         </div>
       </div>
     </div>
-    <div id="stationList" class="station-list"></div>
-    <div class="tabs">
-      <button class="tab-btn">Best</button>
-      <button class="tab-btn">Techno</button>
-      <button class="tab-btn">Trance</button>
-      <button class="tab-btn">UA</button>
-      <button class="tab-btn">Pop</button>
-      <button class="tab-btn">Search</button>
+
+    <div class="station-list" id="stationList"></div>
+
+    <div class="tabs-wrapper">
+      <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="best">Best</button>
+        <button class="tab-btn" data-tab="techno">Techno</button>
+        <button class="tab-btn" data-tab="trance">Trance</button>
+        <button class="tab-btn" data-tab="ukraine">UA</button>
+        <button class="tab-btn" data-tab="pop">Pop</button>
+        <button class="tab-btn" data-tab="search">Search</button>
+        <button class="add-tab-btn">+</button>
+      </div>
     </div>
+
     <div id="searchInput">
-      <input id="searchQuery" type="text" placeholder="Назва станції" list="pastSearches">
-      <input id="searchCountry" type="text" placeholder="Країна" list="suggestedCountries">
-      <input id="searchGenre" type="text" placeholder="Жанр" list="suggestedGenres">
-      <button class="search-btn">🔍</button>
+      <input id="searchQuery" type="text" placeholder="Назва станції..." list="pastSearches">
       <datalist id="pastSearches"></datalist>
+      <input id="searchCountry" type="text" placeholder="Країна..." list="suggestedCountries">
       <datalist id="suggestedCountries"></datalist>
+      <input id="searchGenre" type="text" placeholder="Жанр..." list="suggestedGenres">
       <datalist id="suggestedGenres"></datalist>
+      <button class="search-btn">🔍</button>
     </div>
+
     <div class="controls-container">
-      <audio id="audioPlayer"></audio>
       <div class="controls">
         <button class="control-btn">⏮</button>
         <button class="control-btn">▶</button>
         <button class="control-btn">⏭</button>
       </div>
     </div>
+
+    <audio id="audioPlayer" preload="none"></audio>
+
+    <div class="modal-overlay new-tab-modal" style="display: none;">
+      <div class="modal">
+        <h2>Створити нову вкладку</h2>
+        <input id="newTabName" type="text" placeholder="Назва вкладки..." maxlength="20">
+        <div class="modal-tabs">
+          <button class="modal-tab-btn" id="createTabBtn">Створити</button>
+          <button class="modal-cancel-btn">Відміна</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay edit-tab-modal" style="display: none;">
+      <div class="modal">
+        <h2>Дії з вкладкою</h2>
+        <input id="renameTabName" type="text" placeholder="Нова назва..." maxlength="20">
+        <div class="modal-tabs">
+          <button class="modal-tab-btn" id="renameTabBtn">Перейменувати</button>
+          <button class="modal-tab-btn" id="deleteTabBtn">Видалити</button>
+          <button class="modal-cancel-btn">Відміна</button>
+        </div>
+      </div>
+    </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>

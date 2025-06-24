@@ -1,10 +1,10 @@
-/* Updated on June 18, 2025 */
+/* Updated on June 23, 2025 */
 :root {
   --body-bg: #0A0A0A;
   --container-bg: #121212;
   --accent: #00F0FF;
   --text: #F0F0F0;
-  --accent-gradient: #003C4B;
+  --accent-gradient: rgb(0, 123, 255);
 }
 
 body {
@@ -18,20 +18,20 @@ body {
   justify-content: center;
   align-items: flex-start;
   overflow-x: hidden;
-  padding-top: 10px;
+  padding-top: 5px;
   box-sizing: border-box;
   transition: background 0.4s ease, color 0.4s ease;
 }
 
 .container {
-  max-width: 100%;
+  max-width: 95%;
   width: 100%;
   background: var(--container-bg);
   padding: 15px;
   border-radius: 15px;
   border: 1px solid var(--accent);
-  margin: 0 10px;
-  min-height: 90vh;
+  margin: 0 auto;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -40,13 +40,14 @@ body {
 
 h1 {
   font-size: 2.5em;
-  margin: 5px 0;
+  margin: 2px 0 5px;
   text-align: center;
   color: var(--accent);
   transition: color 0.4s ease;
 }
 
-.theme-toggle, .share-button {
+.theme-toggle,
+.share-button {
   position: absolute;
   top: 10px;
   background: var(--container-bg);
@@ -70,21 +71,23 @@ h1 {
   right: 10px;
 }
 
-.theme-toggle:hover, .share-button:hover {
+.theme-toggle:hover,
+.share-button:hover {
   background: var(--accent);
   color: #0A0A0A;
   transform: scale(1.1);
 }
 
 #currentStationInfo {
-  background: linear-gradient(45deg, var(--container-bg), var(--container-bg), var(--accent-gradient));
-  padding: 20px;
+  background: linear-gradient(45deg, var(--container-bg), var(--accent-gradient));
+  padding: 20px; /* Відновлено зі старого файлу */
   border-radius: 12px;
-  margin: 10px 0;
+  margin: 5px 0;
   color: var(--text);
   border: 2px solid var(--accent);
   text-align: left;
   height: auto;
+  min-height: 100px;
   display: flex;
   align-items: center;
   position: sticky;
@@ -102,7 +105,7 @@ h1 {
 .station-info-content {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 15px; /* Відновлено зі старого файлу */
   width: 100%;
 }
 
@@ -110,14 +113,14 @@ h1 {
   display: flex;
   flex-direction: column;
   flex: 1;
-  order: 2; /* Текст іде другим, щоб зображення було ліворуч */
+  order: 2;
 }
 
 #currentStationInfo .station-name {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -125,13 +128,13 @@ h1 {
 }
 
 #currentStationInfo .station-genre {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 #currentStationInfo .station-country {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   margin-top: 2px;
 }
@@ -140,8 +143,8 @@ h1 {
   width: 80px;
   height: 80px;
   object-fit: contain;
-  order: 1; /* Зображення перше */
-  font-size: 60px; /* Для емодзі, якщо немає іконки */
+  order: 1;
+  font-size: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -152,16 +155,16 @@ h1 {
   align-items: center;
   justify-content: center;
   margin-left: auto;
-  order: 3; /* Візуалізатор останній */
-  width: 150px;
-  height: 80px;
+  order: 3;
+  width: 150px; /* Відновлено зі старого файлу */
+  height: 80px; /* Відновлено зі старого файлу */
   position: relative;
   overflow: hidden;
 }
 
 .wave-line {
   position: absolute;
-  height: 2px;
+  height: 2px; /* Відновлено зі старого файлу */
   background: var(--accent);
   animation: wavePulse 1.5s infinite;
   animation-play-state: paused;
@@ -169,7 +172,7 @@ h1 {
   transform-origin: left;
 }
 
-.wave-line:nth-child(1) { top: 10%; width: 20%; animation-delay: 0s; }
+.wave-line:nth-child(1) { top: 10%; width: 20%; animation-delay: 0s; } /* Відновлено зі старого файлу */
 .wave-line:nth-child(2) { top: 20%; width: 30%; animation-delay: 0.2s; }
 .wave-line:nth-child(3) { top: 30%; width: 40%; animation-delay: 0.4s; }
 .wave-line:nth-child(4) { top: 40%; width: 50%; animation-delay: 0.6s; }
@@ -190,21 +193,22 @@ h1 {
 }
 
 .station-list {
-  max-height: 500px;
+  max-height: 60vh;
   overflow-y: auto;
   background: var(--container-bg);
   border: 2px solid var(--accent);
   border-radius: 10px;
-  margin: 10px 0;
-  padding: 10px;
+  margin: 8px 0;
+  padding: 6px;
   scrollbar-width: thin;
   scrollbar-color: var(--accent) var(--container-bg);
   flex-grow: 1;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: border-color 0.4s ease;
 }
 
 .station-list::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 .station-list::-webkit-scrollbar-track {
@@ -213,27 +217,28 @@ h1 {
 
 .station-list::-webkit-scrollbar-thumb {
   background: var(--accent);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .station-item {
-  padding: 12px;
+  padding: 8px;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 6px;
   font-weight: 500;
   border: 1px solid var(--text);
-  margin: 5px 0;
+  margin: 3px 0;
   color: var(--text);
   background: var(--container-bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
 
 .station-item img {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
   margin-right: 10px;
 }
@@ -244,11 +249,13 @@ h1 {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2;
-  flex: 1; /* Назва займає доступний простір */
+  line-height: 1.3;
+  flex: 1;
+  font-size: 14px;
 }
 
-.station-item:hover, .station-item.selected {
+.station-item:hover,
+.station-item.selected {
   background: var(--accent) !important;
   border: 2px solid var(--accent) !important;
   color: #0A0A0A;
@@ -261,7 +268,9 @@ h1 {
   gap: 5px;
 }
 
-.station-item .favorite-btn, .station-item .add-btn, .station-item .delete-btn {
+.station-item .favorite-btn,
+.station-item .add-btn,
+.station-item .delete-btn {
   background: none;
   border: none;
   color: var(--text);
@@ -274,7 +283,9 @@ h1 {
   color: #FFD700;
 }
 
-.station-item .favorite-btn:hover, .station-item .add-btn:hover, .station-item .delete-btn:hover {
+.station-item .favorite-btn:hover,
+.station-item .add-btn:hover,
+.station-item .delete-btn:hover {
   color: #FFD700;
 }
 
@@ -306,35 +317,48 @@ h1 {
   100% { transform: rotate(360deg); }
 }
 
+.tabs-wrapper {
+  overflow-x: auto;
+  margin: 2px 0;
+  position: static;
+  z-index: 9;
+  background: transparent;
+}
+
+.tabs-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
 .tabs {
   display: flex;
-  justify-content: space-between;
-  margin: 5px 0;
+  justify-content: flex-start;
   background: var(--container-bg);
   padding: 5px;
   border-radius: 10px;
-  border: 1px solid var(--accent);
-  position: sticky;
-  top: 100px; /* Нижче #currentStationInfo */
-  z-index: 9;
-  transition: background 0.4s ease, border-color 0.4s ease;
+  white-space: nowrap;
+  gap: 4px;
+  scroll-behavior: smooth;
+  transition: background 0.4s ease;
 }
 
-.tab-btn {
-  flex: 1;
-  padding: 12px;
+.tab-btn,
+.add-tab-btn {
+  flex: 0 0 auto;
+  min-width: 60px;
+  padding: 8px;
   background: var(--container-bg);
   border: 2px solid var(--accent);
-  border-radius: 5px;
+  border-radius: 12px;
   color: var(--text);
   cursor: pointer;
   margin: 0 2px;
   text-align: center;
-  font-size: 14px;
+  font-size: 11px;
   transition: all 0.3s ease;
 }
 
-.tab-btn:hover {
+.tab-btn:hover,
+.add-tab-btn:hover {
   background: var(--accent);
   color: #0A0A0A;
   transform: translateY(-2px);
@@ -346,21 +370,26 @@ h1 {
   color: #0A0A0A;
 }
 
+.add-tab-btn {
+  width: 35px;
+  font-size: 16px;
+}
+
 #searchInput {
   display: none;
   margin: 5px 0;
-  padding: 10px;
+  padding: 6px;
   border-radius: 8px;
   border: 2px solid var(--accent);
   background: var(--container-bg);
   color: var(--text);
-  font-size: 16px;
+  font-size: 14px;
   width: 100%;
   box-sizing: border-box;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
+  flex-direction: column;
+  gap: 6px;
+  align-items: stretch;
   transition: all 0.3s ease;
 }
 
@@ -369,18 +398,22 @@ h1 {
   box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.5);
 }
 
-#searchQuery, #searchCountry, #searchGenre {
-  flex: 1 1 200px;
-  min-width: 120px;
+#searchQuery,
+#searchCountry,
+#searchGenre {
+  flex: 1;
+  min-width: 100%;
   background: transparent;
   border: none;
   color: var(--text);
-  font-size: 16px;
+  font-size: 14px;
   outline: none;
-  padding: 8px;
+  padding: 6px;
 }
 
-#searchQuery::placeholder, #searchCountry::placeholder, #searchGenre::placeholder {
+#searchQuery::placeholder,
+#searchCountry::placeholder,
+#searchGenre::placeholder {
   color: var(--text);
   opacity: 0.6;
 }
@@ -392,6 +425,10 @@ h1 {
   padding: 8px 12px;
   color: var(--text);
   cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  align-self: stretch;
   transition: all 0.3s ease;
 }
 
@@ -421,43 +458,16 @@ h1 {
   gap: 50px;
 }
 
-.wave-progress {
-  display: flex;
-  gap: 4px;
-  height: 60px;
-  width: 84px;
-}
-
-.wave-bar {
-  width: 10px;
-  background: var(--accent);
-  border-radius: 5px;
-  animation: waveAnimation 1.2s infinite ease-in-out;
-  animation-play-state: paused;
-  transition: background 0.4s ease;
-}
-
-.wave-bar:nth-child(2) { animation-delay: 0.2s; }
-.wave-bar:nth-child(3) { animation-delay: 0.3s; }
-.wave-bar:nth-child(4) { animation-delay: 0.4s; }
-.wave-bar:nth-child(5) { animation-delay: 0.5s; }
-.wave-bar:nth-child(6) { animation-delay: 0.6s; }
-.wave-bar:nth-child(7) { animation-delay: 0.7s; }
-
-@keyframes waveAnimation {
-  0%, 100% { transform: scaleY(0.3); }
-  50% { transform: scaleY(1); }
-}
-
 .control-btn {
   width: 80px;
   height: 80px;
   font-size: 32px;
   background: var(--container-bg);
   color: var(--text);
-  border: 4px solid var(--accent);
+  border: 2px solid var(--accent);
   border-radius: 15px;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
@@ -493,18 +503,20 @@ h1 {
   background: var(--container-bg);
   border: 2px solid var(--accent);
   border-radius: 12px;
-  padding: 20px;
+  padding: 12px;
   z-index: 21;
-  width: 300px;
+  width: 90%;
   max-width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
   box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3);
   transition: all 0.3s ease;
 }
 
 .modal h2 {
   color: var(--accent);
-  font-size: 1.5em;
-  margin: 0 0 15px;
+  font-size: 1.2em;
+  margin: 0 0 10px;
   text-align: center;
 }
 
@@ -514,19 +526,21 @@ h1 {
   gap: 10px;
 }
 
-.modal-tab-btn, .modal-cancel-btn {
-  padding: 10px;
+.modal-tab-btn,
+.modal-cancel-btn {
+  padding: 6px;
   background: var(--container-bg);
   border: 2px solid var(--accent);
-  border-radius: 8px;
+  border-radius: 6px;
   color: var(--text);
-  font-size: 16px;
+  font-size: 13px;
   cursor: pointer;
   text-align: center;
   transition: all 0.3s ease;
 }
 
-.modal-tab-btn:hover, .modal-cancel-btn:hover {
+.modal-tab-btn:hover,
+.modal-cancel-btn:hover {
   background: var(--accent);
   color: #0A0A0A;
   transform: translateY(-2px);
@@ -542,7 +556,27 @@ h1 {
   color: var(--body-bg);
 }
 
-/* Стилі для datalist */
+.new-tab-modal input,
+.edit-tab-modal input {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 10px;
+  background: var(--container-bg);
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 13px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.new-tab-modal input:focus,
+.edit-tab-modal input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.5);
+  outline: none;
+}
+
 input[list]::-webkit-calendar-picker-indicator {
   display: none;
 }
@@ -552,10 +586,12 @@ input[list] {
 }
 
 datalist {
-  display: none; /* datalist не відображається, але опції працюють */
+  display: none;
 }
 
-#searchQuery[list], #searchCountry[list], #searchGenre[list] {
+#searchQuery[list],
+#searchCountry[list],
+#searchGenre[list] {
   background: var(--container-bg);
   border: 1px solid var(--accent);
   border-radius: 4px;
@@ -564,39 +600,52 @@ datalist {
   transition: all 0.3s ease;
 }
 
-#searchQuery[list]:focus, #searchCountry[list]:focus, #searchGenre[list]:focus {
+#searchQuery[list]:focus,
+#searchCountry[list]:focus,
+#searchGenre[list]:focus {
   border-color: var(--accent);
   box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.5);
 }
 
 @media (max-width: 720px) {
   h1 {
-    font-size: 2em;
+    font-size: 1.8em;
+    line-height: 1.2;
+    margin: 2px 0 5px;
   }
 
   .container {
     padding: 10px;
-    margin: 0 5px;
-    min-height: 90vh;
+    margin: 0 auto;
+    min-height: 80vh;
   }
 
   .control-btn {
-    width: 70px;
-    height: 70px;
-    font-size: 24px;
-    border-width: 2px;
-    border-radius: 10px;
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--accent);
   }
 
   .station-list {
-    max-height: 400px;
+    max-height: 60vh;
     margin: 8px 0;
-    padding: 8px;
+    padding: 6px;
+    border-width: 1px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   .station-item {
-    padding: 10px;
-    margin: 4px 0;
+    padding: 8px;
+    margin: 3px 0;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .station-item .station-name {
+    font-size: 14px;
+    line-height: 1.3;
   }
 
   .station-item img {
@@ -604,7 +653,16 @@ datalist {
     height: 28px;
   }
 
-  .theme-toggle, .share-button {
+  .station-list::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .station-list::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+  }
+
+  .theme-toggle,
+  .share-button {
     top: 5px;
     padding: 4px;
     height: 35px;
@@ -619,83 +677,127 @@ datalist {
     right: 5px;
   }
 
+  .tabs-wrapper {
+    overflow-x: auto;
+    margin: 2px 0;
+    padding: 0 5px;
+    background: transparent;
+    position: static;
+  }
+
+  .tab-btn,
+  .add-tab-btn {
+    min-width: 60px;
+    padding: 8px;
+    font-size: 11px;
+    border-width: 2px;
+    border-radius: 12px;
+  }
+
+  .add-tab-btn {
+    width: 35px;
+    font-size: 16px;
+  }
+
   .tabs {
-    top: 80px; /* Нижче #currentStationInfo на мобільних */
+    gap: 4px;
+    scroll-behavior: smooth;
   }
 
   #currentStationInfo {
-    padding: 12px;
-    height: auto;
-  }
-
-  #currentStationInfo .station-name {
-    font-size: 20px;
-  }
-
-  #currentStationInfo .station-genre {
-    font-size: 16px;
-  }
-
-  #currentStationInfo .station-country {
-    font-size: 16px;
+    padding: 12px; /* Відновлено зі старого файлу */
+    min-height: 100px;
+    max-height: 350px;
+    align-items: center;
+    gap: 10px; /* Відновлено зі старого файлу */
   }
 
   .station-info-content {
+    flex-direction: row;
     gap: 10px;
+  }
+
+  #currentStationInfo .station-name {
+    font-size: 18px;
+    -webkit-line-clamp: 2;
+  }
+
+  #currentStationInfo .station-genre,
+  #currentStationInfo .station-country {
+    font-size: 14px;
+    margin-top: 2px;
   }
 
   .station-icon {
     width: 65px;
     height: 65px;
-    font-size: 50px; /* Для емодзі на мобільних */
+    font-size: 50px;
   }
 
   .wave-visualizer {
-    width: 120px;
-    height: 65px;
+    width: 120px; /* Відновлено зі старого файлу */
+    height: 65px; /* Відновлено зі старого файлу */
   }
 
   .wave-line {
-    height: 1px;
-  }
-
-  .tab-btn {
-    padding: 10px;
-    font-size: 12px;
-    border-width: 1px;
+    height: 1px; /* Відновлено зі старого файлу */
   }
 
   #searchInput {
-    padding: 8px;
-    font-size: 14px;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 6px;
+    gap: 6px;
+    max-height: none;
   }
 
-  #searchQuery, #searchCountry, #searchGenre {
+  #searchQuery,
+  #searchCountry,
+  #searchGenre {
+    flex: 1;
+    min-width: 100%;
     font-size: 14px;
     padding: 6px;
-    flex: 1 1 120px;
-    min-width: 100px;
   }
 
   #searchInput button.search-btn {
-    padding: 6px 10px;
-    flex: 0 0 auto;
+    padding: 8px 12px;
+    font-size: 14px;
+    width: 100%;
+    align-self: stretch;
   }
 
   .modal {
-    width: 80%;
-    padding: 15px;
+    width: 90%;
+    padding: 12px;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   .modal h2 {
-    font-size: 1.3em;
+    font-size: 1.2em;
+    margin-bottom: 10px;
   }
 
-  .modal-tab-btn, .modal-cancel-btn {
-    font-size: 14px;
-    padding: 8px;
+  .modal-tab-btn,
+  .modal-cancel-btn {
+    font-size: 13px;
+    padding: 6px;
+    border-radius: 6px;
+  }
+
+  .new-tab-modal input,
+  .edit-tab-modal input {
+    font-size: 13px;
+    padding: 6px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 721px) {
+  #searchInput {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }
 
