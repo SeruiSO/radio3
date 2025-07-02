@@ -1,4 +1,4 @@
-/* Updated on June 23, 2025 */
+/* Updated on July 02, 2025 */
 :root {
   --body-bg: #0A0A0A;
   --container-bg: #121212;
@@ -47,7 +47,9 @@ h1 {
 }
 
 .theme-toggle,
-.share-button {
+.share-button,
+.export-button,
+.import-button {
   position: absolute;
   top: 10px;
   background: var(--container-bg);
@@ -68,11 +70,25 @@ h1 {
 }
 
 .share-button {
+  left: 60px;
+}
+
+.export-button {
   right: 10px;
 }
 
+.import-button {
+  right: 60px;
+}
+
+#importFileInput {
+  display: none;
+}
+
 .theme-toggle:hover,
-.share-button:hover {
+.share-button:hover,
+.export-button:hover,
+.import-button:hover {
   background: var(--accent);
   color: #0A0A0A;
   transform: scale(1.1);
@@ -80,7 +96,7 @@ h1 {
 
 #currentStationInfo {
   background: linear-gradient(45deg, var(--container-bg), var(--accent-gradient));
-  padding: 20px; /* Відновлено зі старого файлу */
+  padding: 20px;
   border-radius: 12px;
   margin: 5px 0;
   color: var(--text);
@@ -105,7 +121,7 @@ h1 {
 .station-info-content {
   display: flex;
   align-items: center;
-  gap: 15px; /* Відновлено зі старого файлу */
+  gap: 15px;
   width: 100%;
 }
 
@@ -156,15 +172,15 @@ h1 {
   justify-content: center;
   margin-left: auto;
   order: 3;
-  width: 150px; /* Відновлено зі старого файлу */
-  height: 80px; /* Відновлено зі старого файлу */
+  width: 150px;
+  height: 80px;
   position: relative;
   overflow: hidden;
 }
 
 .wave-line {
   position: absolute;
-  height: 2px; /* Відновлено зі старого файлу */
+  height: 2px;
   background: var(--accent);
   animation: wavePulse 1.5s infinite;
   animation-play-state: paused;
@@ -172,7 +188,7 @@ h1 {
   transform-origin: left;
 }
 
-.wave-line:nth-child(1) { top: 10%; width: 20%; animation-delay: 0s; } /* Відновлено зі старого файлу */
+.wave-line:nth-child(1) { top: 10%; width: 20%; animation-delay: 0s; }
 .wave-line:nth-child(2) { top: 20%; width: 30%; animation-delay: 0.2s; }
 .wave-line:nth-child(3) { top: 30%; width: 40%; animation-delay: 0.4s; }
 .wave-line:nth-child(4) { top: 40%; width: 50%; animation-delay: 0.6s; }
@@ -320,9 +336,11 @@ h1 {
 .tabs-wrapper {
   overflow-x: auto;
   margin: 2px 0;
-  position: static;
-  z-index: 9;
   background: transparent;
+  position: sticky;
+  bottom: 100px;
+  z-index: 11;
+  order: 6;
 }
 
 .tabs-wrapper::-webkit-scrollbar {
@@ -377,7 +395,7 @@ h1 {
 
 #searchInput {
   display: none;
-  margin: 5px 0;
+  margin: 2px 0;
   padding: 6px;
   border-radius: 8px;
   border: 2px solid var(--accent);
@@ -386,11 +404,15 @@ h1 {
   font-size: 14px;
   width: 100%;
   box-sizing: border-box;
-  display: flex;
   flex-direction: column;
   gap: 6px;
   align-items: stretch;
   transition: all 0.3s ease;
+  order: 7;
+}
+
+#searchInput.active {
+  display: flex;
 }
 
 #searchInput:focus-within {
@@ -444,12 +466,13 @@ h1 {
   background: var(--container-bg);
   border-top: 2px solid var(--accent);
   padding: 15px;
+  margin-bottom: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
   z-index: 10;
-  transition: background 0.4s ease, border-color 0.4s ease;
+  order: 8;
 }
 
 .controls {
@@ -662,7 +685,9 @@ datalist {
   }
 
   .theme-toggle,
-  .share-button {
+  .share-button,
+  .export-button,
+  .import-button {
     top: 5px;
     padding: 4px;
     height: 35px;
@@ -674,15 +699,24 @@ datalist {
   }
 
   .share-button {
+    left: 50px;
+  }
+
+  .export-button {
     right: 5px;
   }
 
+  .import-button {
+    right: 50px;
+  }
+
   .tabs-wrapper {
-    overflow-x: auto;
     margin: 2px 0;
     padding: 0 5px;
     background: transparent;
-    position: static;
+    position: sticky;
+    bottom: 100px;
+    z-index: 11;
   }
 
   .tab-btn,
@@ -705,11 +739,11 @@ datalist {
   }
 
   #currentStationInfo {
-    padding: 12px; /* Відновлено зі старого файлу */
+    padding: 12px;
     min-height: 100px;
     max-height: 350px;
     align-items: center;
-    gap: 10px; /* Відновлено зі старого файлу */
+    gap: 10px;
   }
 
   .station-info-content {
@@ -735,20 +769,21 @@ datalist {
   }
 
   .wave-visualizer {
-    width: 120px; /* Відновлено зі старого файлу */
-    height: 65px; /* Відновлено зі старого файлу */
+    width: 120px;
+    height: 65px;
   }
 
   .wave-line {
-    height: 1px; /* Відновлено зі старого файлу */
+    height: 1px;
   }
 
-  #searchInput {
+  .searchInput {
     flex-direction: column;
     align-items: stretch;
     padding: 6px;
     gap: 6px;
     max-height: none;
+    margin: 2px 0;
   }
 
   #searchQuery,
