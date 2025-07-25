@@ -125,13 +125,13 @@ body {
 }
 
 .container {
-  max-width: 95%;
+  max-width: 91%;
   width: 100%;
   background: var(--container-bg);
   padding: 15px;
   border-radius: 12px;
   border: 1px solid var(--accent);
-  margin: 0 auto;
+  margin: 0 2%;
   min-height: 85vh;
   display: flex;
   flex-direction: column;
@@ -256,8 +256,8 @@ h1 {
 }
 
 .station-icon {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   order: 1;
   font-size: 40px;
   display: flex;
@@ -568,7 +568,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 40px;
   z-index: 10;
   transition: background 0.3s ease, border-color 0.3s ease;
 }
@@ -576,12 +576,12 @@ h1 {
 .controls {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 40px;
 }
 
 .control-btn {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   font-size: 32px;
   background: var(--container-bg);
   color: var(--text);
@@ -741,8 +741,8 @@ datalist {
   }
 
   .control-btn {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     font-size: 28px;
     border: 1px solid var(--accent);
   }
@@ -832,8 +832,8 @@ datalist {
   }
 
   .station-icon {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     font-size: 36px;
   }
 
