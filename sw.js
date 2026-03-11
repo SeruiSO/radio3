@@ -1,4 +1,4 @@
-const CACHE_NAME = 'radio-cache-v72';
+const CACHE_NAME = 'radio-cache-v111';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -25,6 +25,21 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  // Handle API requests differently
+  if (event.request.url.includes('api.radio-browser.info')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => response)
+        .catch(() => {
+          return new Response(JSON.stringify({ error: 'Network error' }), {
+            status: 503,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        })
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((response) => {
       if (event.request.url.endsWith('stations.json')) {

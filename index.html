@@ -1,140 +1,131 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#00F0FF">
-  <title>Radio Music</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#00E676">
+  <meta name="description" content="Radio Music S O - Слухайте улюблені радіостанції з сучасним інтерфейсом та функціями">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Radio Music S O</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="preconnect" href="https://de1.api.radio-browser.info">
 </head>
 <body>
   <div class="container">
-    <button class="theme-toggle">🌙</button>
-    <button class="share-button">📢</button>
-    <button class="export-button">📤</button>
-    <button class="import-button">📥</button>
-    <input type="file" id="importFileInput" accept="application/json">
-    <h1>🎧 Radio Music</h1>
-    <audio id="audioPlayer"></audio>
+    <!-- Кнопки управління -->
+    <button class="theme-toggle" aria-label="Змінити тему">🌙</button>
+    <button class="share-button" aria-label="Поділитися поточною станцією">📢</button>
+    <button class="export-button" aria-label="Експортувати налаштування">📤</button>
+    <button class="import-button" aria-label="Імпортувати налаштування">📥</button>
+    <input type="file" id="importFileInput" accept="application/json" aria-label="Файл для імпорту налаштувань">
+    
+    <h1>🎧 Radio Music S O</h1>
+    <audio id="audioPlayer" aria-label="Аудіоплеєр" preload="auto"></audio>
 
-    <div id="currentStationInfo">
+    <!-- Loading Indicator -->
+    <div class="loading-indicator" id="loadingIndicator" role="status" aria-label="Завантаження"></div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" role="alert"></div>
+
+    <!-- Pull to Refresh Indicator -->
+    <div class="pull-indicator" id="pullIndicator" style="display: none;">
+      <i>↓</i>
+    </div>
+
+    <!-- Current Station Info -->
+    <div id="currentStationInfo" role="region" aria-label="Інформація про поточну станцію">
       <div class="station-info-content">
-        <div class="station-icon">🎵</div>
+        <div class="station-icon" role="img" aria-label="Іконка станції">🎵</div>
         <div class="station-text">
-          <div class="station-name">Обирайте станцію</div>
-          <div class="station-genre">жанр: -</div>
-          <div class="station-country">країна: -</div>
+          <div class="station-name" aria-label="Назва станції">Виберіть станцію</div>
+          <div class="station-genre" aria-label="Жанр">жанр: -</div>
+          <div class="station-country" aria-label="Країна">країна: -</div>
+          <div class="current-track" id="currentTrack" aria-label="Поточний трек">🎵 Трек: невідомо</div>
         </div>
-        <div class="wave-visualizer">
-          <div class="wave-line"></div>
-          <div class="wave-line"></div>
-          <div class="wave-line"></div>
-          <div class="wave-line"></div>
-          <div class="wave-line"></div>
-          <div class="wave-line"></div>
-          <div class="wave-line"></div>
-          <div class="wave-line"></div>
-          <div class="wave-line"></div>
+        <!-- Сучасний хвильовий візуалізатор -->
+        <div class="wave-visualizer" aria-hidden="true">
+          <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+            <path d="M10,30 Q20,10 30,30 T50,30 T70,30 T90,30" stroke="var(--accent)" fill="none" stroke-width="2"/>
+            <path d="M10,30 Q20,50 30,30 T50,30 T70,30 T90,30" stroke="var(--accent)" fill="none" stroke-width="2" opacity="0.7"/>
+            <path d="M10,30 Q20,20 30,30 T50,30 T70,30 T90,30" stroke="var(--accent)" fill="none" stroke-width="2" opacity="0.4"/>
+          </svg>
         </div>
       </div>
     </div>
 
-    <div class="station-list" id="stationList"></div>
+    <!-- Station List -->
+    <div class="station-list" id="stationList" role="list" aria-label="Список станцій"></div>
 
+    <!-- Tabs -->
     <div class="tabs-wrapper">
-      <div class="tabs" id="tabs">
-        <button class="tab-btn" data-tab="best">Best</button>
-        <button class="tab-btn" data-tab="techno">Techno</button>
-        <button class="tab-btn" data-tab="trance">Trance</button>
-        <button class="tab-btn" data-tab="ukraine">UA</button>
-        <button class="tab-btn" data-tab="pop">Pop</button>
-        <button class="tab-btn" data-tab="search">Search</button>
-        <button class="add-tab-btn">+</button>
+      <div class="tabs" id="tabs" role="tablist" aria-label="Категорії станцій">
+        <!-- Таби генеруються динамічно через JavaScript -->
       </div>
     </div>
 
-    <div id="searchInput">
-      <input id="searchQuery" list="pastSearches" placeholder="Enter station name">
+    <!-- Search Input -->
+    <div id="searchInput" role="search" aria-label="Пошук станцій" style="display: none;">
+      <input id="searchQuery" list="pastSearches" placeholder="Введіть назву станції" aria-label="Пошук за назвою станції">
       <datalist id="pastSearches"></datalist>
-      <input id="searchCountry" list="suggestedCountries" placeholder="Enter country">
+      <input id="searchCountry" list="suggestedCountries" placeholder="Введіть країну" aria-label="Пошук за країною">
       <datalist id="suggestedCountries"></datalist>
-      <input id="searchGenre" list="suggestedGenres" placeholder="Enter genre">
+      <input id="searchGenre" list="suggestedGenres" placeholder="Введіть жанр" aria-label="Пошук за жанром">
       <datalist id="suggestedGenres"></datalist>
-      <button class="search-btn">🔍</button>
+      <button class="search-btn" aria-label="Виконати пошук">🔍 Пошук</button>
     </div>
 
+    <!-- Controls -->
     <div class="controls-container">
       <div class="controls">
-        <button class="control-btn">⏮</button>
-        <button class="control-btn">▶</button>
-        <button class="control-btn">⏭</button>
+        <button class="control-btn" aria-label="Попередня станція">⏮</button>
+        <button class="control-btn" aria-label="Грати/Пауза">▶</button>
+        <button class="control-btn" aria-label="Наступна станція">⏭</button>
       </div>
     </div>
 
-    <div class="new-tab-modal modal-overlay" style="display: none;">
+    <!-- New Tab Modal -->
+    <div class="new-tab-modal modal-overlay" style="display: none;" role="dialog" aria-label="Створити нову вкладку">
       <div class="modal">
         <h2>Створити нову вкладку</h2>
-        <input id="newTabName" type="text" placeholder="Enter tab name">
+        <input id="newTabName" type="text" placeholder="Введіть назву вкладки (a-z, 0-9, -, _)" aria-label="Назва нової вкладки" maxlength="10" pattern="[a-z0-9_-]+">
         <div class="modal-tabs">
-          <button id="createTabBtn" class="modal-tab-btn">Створити</button>
-          <button class="modal-cancel-btn">Відміна</button>
+          <button id="createTabBtn" class="modal-tab-btn" aria-label="Створити вкладку">Створити</button>
+          <button class="modal-cancel-btn" aria-label="Скасувати">Скасувати</button>
         </div>
       </div>
     </div>
 
-    <div class="edit-tab-modal modal-overlay" style="display: none;">
+    <!-- Edit Tab Modal -->
+    <div class="edit-tab-modal modal-overlay" style="display: none;" role="dialog" aria-label="Редагувати вкладку">
       <div class="modal">
         <h2>Дії з вкладкою</h2>
-        <input id="renameTabName" type="text" placeholder="Enter new tab name">
+        <input id="renameTabName" type="text" placeholder="Введіть нову назву вкладки" aria-label="Нова назва вкладки" maxlength="10" pattern="[a-z0-9_-]+">
         <div class="modal-tabs">
-          <button id="renameTabBtn" class="modal-tab-btn">Перейменувати</button>
-          <button id="deleteTabBtn" class="modal-tab-btn">Видалити</button>
-          <button class="modal-cancel-btn">Відміна</button>
+          <button id="renameTabBtn" class="modal-tab-btn" aria-label="Перейменувати вкладку">Перейменувати</button>
+          <button id="deleteTabBtn" class="modal-tab-btn" aria-label="Видалити вкладку">Видалити</button>
+          <button class="modal-cancel-btn" aria-label="Скасувати">Скасувати</button>
         </div>
       </div>
     </div>
 
   </div>
+  
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(error => {
+          console.log('ServiceWorker registration failed: ', error);
+        });
+      });
+    }
+  </script>
+  
+  <!-- Main Script -->
   <script src="script.js"></script>
 </body>
 </html>
